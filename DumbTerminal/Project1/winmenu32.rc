@@ -1,0 +1,30 @@
+#include "menu.h"
+
+MYMENU MENU
+{
+	POPUP "&Settings"
+	{
+		MENUITEM "&Connect", IDM_CONNECT
+		MENUITEM "&Exit", IDM_EXIT
+	}
+	MENUITEM "&Help", IDM_HELP
+	POPUP "&Write Color"
+	{
+		MENUITEM "&Red",	IDM_WRED
+		MENUITEM "&White",  IDM_WWHITE
+		MENUITEM "&Green",  IDM_WGREEN
+		MENUITEM "&Yellow", IDM_WYELLOW
+		MENUITEM "&Grey",	IDM_WGREY
+		MENUITEM "&Blue",	IDM_WBLUE
+	}
+	POPUP "&Read Color"
+	{
+		MENUITEM "&Red",		IDM_RRED
+			MENUITEM "&White",  IDM_RWHITE
+			MENUITEM "&Green",  IDM_RGREEN
+			MENUITEM "&Yellow", IDM_RYELLOW
+			MENUITEM "&Grey",	IDM_RGREY
+			MENUITEM "&Blue",	 IDM_RBLUE
+	}
+}
+}

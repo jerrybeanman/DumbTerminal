@@ -1,0 +1,13 @@
+This is a application for serial port communication. 
+--------------------------------------------------------------------
+To enter connect mode, select 'Connect' on the menu and 
+enter the appropriate corresponding parameters in order 
+for the two machines to communicate.
+In this mode, two computers connected through the serial 
+port will be able to perform asynchrounous read/write. 
+Characers recieved from the serial port will be displayed in Green, 
+and characters sent will be displayed in Yellow. 
+Additionlly, the program will also process special characters 
+such as carriage return and backspace
+--------------------------------------------------------------------
+To exit the connect mode, select the 'Exit' menu item.

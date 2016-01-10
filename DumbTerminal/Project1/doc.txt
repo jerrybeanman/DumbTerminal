@@ -1,0 +1,85 @@
+Start -BOOL Initialize_App()-
+	Create Handle for window
+	Create WNDCLASSEX
+	Initialize WNDCLASSEX, register it
+		Use RegisterClassEx()
+	Create the window and associate the handle to it
+		Use CreateWindow()
+	Create handle for serial port
+	Initialize handle to the serial port
+		Use CreateFile
+	Create MSG
+	Loop Forever:
+		Pass MSG to WNDPROC
+			use TranslateMessage() and DispatchMessage()
+
+Command Mode -LRESULT CALLBACK WndProc(HWND hwnd, UINT Message, WPARAM wParam, LPARAM lParam)-
+	Selecting the Settings popup item will bring up connect and exit menu item
+			Selecting Connect will transition into Settings mode
+			Selecting Exit will transition from Connect mode back to Command mode
+	Selecting the Help popup item will transition into Help state
+-----------------------------------------------------------------------------------------
+-This is a blank windows screen that user have access to the Settings and Help menu items
+-This state will not offer any functionalities to the system, unlike the connect mode
+-----------------------------------------------------------------------------------------
+
+Help -VOID Help()-
+	Displaye help message 
+		Use MessageBox()
+	Selecting the "OK" button will transition back to the previous state
+
+
+Setting Mode -BOOL Setup_Comm_Config()-
+	Create COMMFIG											//	Struct WndProc_Parameters{
+	Initialize COMMCONFIG									//		HWND hwnd,
+		Use GetCommConfig()									//		UINT Message,
+	Display Comm window										//		WARAM wParam,
+		Use CommConfigdialog()								//		lParam
+	User: Input comm parameters								//	};
+	Code: Set comm parameters
+	Selecting "OK" will transition into  Connect Mode
+			Set isConnected to TRUE
+	Selecting "Cancel" will transition back to previous mode
+
+Connect Mode 
+	Create read thread that loop forever
+		Call Read_From_Serial()		
+	
+
+Get Serial Port Input -DWORD WINAPI Read_From_Serial(LPVOID lpvoid)-:
+	Loop Forever
+		Initialize overlapped object for reading
+			Call CreateEvent()
+		Read from serial port
+			Call Read_Serial()
+		Make sure the character read is successfully processed
+			Call WaitForSingleObject
+		Display input on screen
+			Call Display_Text()
+			Transition to Display Text state
+
+Get keyboard input:
+	Loop Forever
+		process keyboard input from WndProc
+		Send text to serial port
+			Call Write_To_Serial()
+			Transition to Send Text state
+	
+Send Text -BOOL Write_To_Serial()-
+		Initialize overlapped object for reading
+			Call CreateEvent()
+		Write to serial port
+			Call WriteFile()
+		Display input on screen
+			Call Display_Text()
+			Transition to display state
+
+Display Text -VOID Display(HDC &hdc, COLORREF &color)
+	Convert string to a wParam
+	Process virtual keys (Return, Backspace)
+	display charater with the passed in color
+		Call SetTextColor()
+		Call TextOut
+
+	
+	
